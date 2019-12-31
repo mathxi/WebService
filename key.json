@@ -1,0 +1,12 @@
+{
+    "web": {
+        "client_id": "861780870212-48tck9an0i7koff0lng74d4tbmrung8k.apps.googleusercontent.com",
+        "project_id": "cour-web-services",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "JMrEHupmSdMnDE_5u8O7cs2f",
+        "redirect_uris": ["http://chatservice.ml/chat"],
+        "javascript_origins": ["http://chatservice.ml"]
+    }
+}
