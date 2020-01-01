@@ -1,12 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 </head>
+
 <body>
-    <h1>page Chat</h1>
+    <div id="app">
+        <h1>Bienvenu {{user.name.familyName}} {{user.name.givenName}} dans le chat</h1>
+        <img width="300px" height="300px" :src="user.photo" alt="Photo user">
+        <div style="width:600px;">
+            <div id="chat_container">
+                <li v-for="message in messages">
+                    <img width="25px" height="25px" :src="message.user.photo">
+                    <span>{{message.user.name.givenName}}</span>
+                    <p>{{message.message}}</p>
+                </li>
+            </div>
+        </div>
+        <input type="text" v-model="text_msg">
+        <button @click="envoyer_msg()">Envoyer</button>
+    </div>
+
+    <style>
+        #chat_container {
+            height: 300px;
+            width: 500px;
+            background-color: lightblue;
+        }
+
+        #text_to_send {
+            height: 300px;
+            width: 500px;
+        }
+    </style>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    messages: [],
+                    text_msg: '',
+                    user: {
+                        id: '',
+                        name: {
+                            familyName: '',
+                            givenName: '',
+                        },
+                        photo: '',
+                        locale: '',
+                    },
+                    socket: null
+                }
+            },
+            methods: {
+                envoyer_msg() {
+                    this.socket.emit('chat message', {
+                            user: this.user,
+                            message: this.text_msg
+                        }
+
+                    );
+                    this.text_msg = ''
+
+                }
+            },
+            mounted() {
+                this.socket = io();
+                this.socket.on('chat message', msg => {
+                    this.messages.push(msg)
+                });
+                axios
+                    .get('/getUserConnected')
+                    .then(response => {
+                        this.user = response.data
+                    })
+                    .catch(error => console.log("error" + error))
+            }
+        })
+    </script>
 </body>
+
 </html>
