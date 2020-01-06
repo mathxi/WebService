@@ -6,85 +6,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
     <div id="app">
+        <!--
         <h1>Bienvenu {{user.name.familyName}} {{user.name.givenName}} dans le chat</h1>
         <img width="300px" height="300px" :src="user.photo" alt="Photo user">
-        <div style="width:600px;">
-            <div id="chat_container">
-                <li v-for="message in messages">
-                    <img width="25px" height="25px" :src="message.user.photo">
-                    <span>{{message.user.name.givenName}}</span>
+        -->
+
+        <div id="chat_container">
+            <ul class="chat__container">
+
+                <li v-for="message in messages" sm="11" v-bind:class="{ myMessage: message.user.id == user.id }"
+                    class="a__message">
+                    <div class="message__user__info">
+                        <img width="25px" height="25px" :src="message.user.photo">
+                        <span>{{message.user.name.givenName}}</span>
+                    </div>
+
                     <p>{{message.message}}</p>
                 </li>
+            </ul>
+        </div>
+        <div class="row message__container">
+            <div class="col s12 centered_align_justify">
+                <div class="input-field col s10">
+                    <input @keyup.enter="envoyer_msg" v-model="text_msg" type="text"
+                        class="validate white-text message_input">
+                </div>
+                <div class="col s2 centered_align_justify">
+                    <button @click="envoyer_msg" class="btn waves-effect waves-light centered_align_justify">
+                        Envoyer <i class="material-icons">send</i>
+                    </button>
+                </div>
             </div>
         </div>
-        <input type="text" v-model="text_msg">
-        <button @click="envoyer_msg()">Envoyer</button>
+
+
+
     </div>
 
     <style>
-        #chat_container {
-            height: 300px;
-            width: 500px;
-            background-color: lightblue;
+        body {
+            background-color: black;
         }
 
-        #text_to_send {
-            height: 300px;
-            width: 500px;
+        #app {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #inputMessage {
+            width: 100%;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        #chat_container {
+            height: 90%;
+            width: 100%;
+            color: white;
+            background-color: rgba(56, 53, 53, 0.87);
+        }
+
+        #textaenvoyer {
+            max-width: 90%;
+            background-color: #312e2e;
+            color: white;
+        }
+
+        .centered_align_justify {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .a__message {
+            width: 90%;
+            padding: 20px 40px;
+            background-color: #404040;
+            margin: 0px 10px;
+            border-radius: 5px;
+            position: relative;
+            margin: 30px 15px;
+            box-shadow: 0px 3px 10px black;
+        }
+
+        .message__user__info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            margin-right: 10px;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .message__user__info {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .message_input {
+            background-color: #312e2e !important;
+            padding: 0 10px !important;
+        }
+
+        .chat__container {
+            list-style: none;
+            padding: 20px 0;
+            list-style: none;
+            padding: 20px 0px;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
         }
     </style>
-    <script>
-        var app = new Vue({
-            el: '#app',
-            data() {
-                return {
-                    messages: [],
-                    text_msg: '',
-                    user: {
-                        id: '',
-                        name: {
-                            familyName: '',
-                            givenName: '',
-                        },
-                        photo: '',
-                        locale: '',
-                    },
-                    socket: null
-                }
-            },
-            methods: {
-                envoyer_msg() {
-                    this.socket.emit('chat message', {
-                            user: this.user,
-                            message: this.text_msg
-                        }
 
-                    );
-                    this.text_msg = ''
-
-                }
-            },
-            mounted() {
-                this.socket = io();
-                this.socket.on('chat message', msg => {
-                    this.messages.push(msg)
-                });
-                axios
-                    .get('/getUserConnected')
-                    .then(response => {
-                        this.user = response.data
-                    })
-                    .catch(error => console.log("error" + error))
-            }
-        })
-    </script>
 </body>
 
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                trueValue: true,
+                messages: [],
+                text_msg: '',
+                user: {
+                    id: '',
+                    name: {
+                        familyName: '',
+                        givenName: '',
+                    },
+                    photo: '',
+                    locale: '',
+                },
+                socket: null
+            }
+        },
+        methods: {
+            envoyer_msg() {
+                if (this.text_msg != '') {
+                    this.socket.emit('chat message', {
+                        user: this.user,
+                        message: this.text_msg
+                    });
+                    this.text_msg = ''
+                }
+
+            }
+        },
+        mounted() {
+            this.socket = io();
+            this.socket.on('chat message', msg => {
+                this.messages.push(msg)
+            });
+            axios
+                .get('/getUserConnected')
+                .then(response => {
+                    this.user = response.data
+                })
+                .catch(error => console.log("error" + error))
+        }
+    })
+</script>
