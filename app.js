@@ -1,11 +1,11 @@
+const googleAuth = require('./googleAuth')
+
 const express = require('express')
 const app = express()
 var http = require('http').createServer(app);
-const key = require('./key.json')
 var session = require('express-session')
 var path = require('path');
 var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var port = 8080
 var io = require('socket.io')(http);
 app.use(passport.initialize());
@@ -31,6 +31,7 @@ app.use(session({
 
 
 
+
 function findOrCreate() {
     User.id = profile.id
     User.name = profile.name
@@ -48,22 +49,7 @@ passport.serializeUser(function (user, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Google
 //   profile), and invoke a callback with a user object.
-passport.use(new GoogleStrategy({
-        clientID: key.web.client_id,
-        clientSecret: key.web.client_secret,
-        callbackURL: "http://chatservice.ml/auth/google/callback"
-    },
-    function (accessToken, refreshToken, profile, done) {
-        //console.log("User", profile)
-        let user = {
-            id: profile.id,
-            name: profile.name,
-            photo: profile.photos[0].value,
-            locale: profile._json.locale,
-        }
-        return done(null, user);
-    }
-));
+//googleAuth.passportUse();
 
 
 
@@ -81,6 +67,7 @@ app.get('/', function (req, res) {
 });
 app.get('/chat', function (req, res) {
     //console.log("User is connected: ", isUserConnected(), User)
+    //setTestUser(req);
     console.log("session user: ", req.session)
     if (req.session.user) {
         res.sendFile(path.join(__dirname + '/chat.html'));
@@ -89,7 +76,11 @@ app.get('/chat', function (req, res) {
     }
 
 });
+
+//Mock d'un utilisateur pour utiliser en local.
+
 app.get('/getUserConnected', function (req, res) {
+
     if (req.session.user) {
         res.json(req.session.user);
     } else {
@@ -106,49 +97,16 @@ http.listen(port, function () {
     console.log(`Example app listening on port ${port}!`)
 })
 
-
-
-
-
-
-// GET /auth/google
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Google authentication will involve
-//   redirecting the user to google.com.  After authorization, Google
-//   will redirect the user back to this application at /auth/google/callback
-app.get('/auth/google',
-    passport.authenticate('google', {
-        scope: ['https://www.googleapis.com/auth/plus.login']
-    }));
-
-// GET /auth/google/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-/*
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/auth/google'
-    }),
-    function (req, res) {
-        res.redirect('/chat');
-    });
-
-*/
-
-app.get('/auth/google/callback', function (req, res, next) {
-    passport.authenticate('google', function (err, user, info) {
-        console.log('callback fonction: ')
-        console.log(user)
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.redirect('/');
-        }
-        req.session.user = user
-        console.log("après session user")
-        res.redirect('/chat')
-    })(req, res, next);
-});
+googleAuth.appGetAuth();
+googleAuth.appGetAuthCallback();
+function setTestUser(req){
+    req.session.user = {
+        id: 1,
+        name: {
+            familyName: 'Montagne',
+            givenName: 'Wilfried',
+        },
+        photo: 'https://picsum.photos/200/300',
+        locale: 'FR',
+    }
+}
