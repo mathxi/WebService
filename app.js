@@ -87,8 +87,8 @@ app.get('/chat', function (req, res) {
     } else {
         res.redirect('/');
     }
-
 });
+
 app.get('/getUserConnected', function (req, res) {
     if (req.session.user) {
         res.json(req.session.user);
