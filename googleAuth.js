@@ -54,11 +54,11 @@ module.exports = {
                     return next(err);
                 }
                 if (!user) {
-                    return res.redirect('/chat');
+                    return res.redirect('/');
                 }
                 req.session.user = user
                 console.log("après session user")
-                res.redirect('/')
+                res.redirect('/chat')
             })(req, res, next);
         });
     }
