@@ -13,7 +13,8 @@ app.use(passport.session());
 app.disable('x-powered-by');
 io.on('connection', function (socket) {
     socket.on('chat message', function (msg) {
-        io.emit('chat message', msg);
+        console.log(msg)
+        io.emit(msg.salon, msg);
     });
 });
 

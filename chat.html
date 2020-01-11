@@ -22,8 +22,17 @@
         <h1>Bienvenu {{user.name.familyName}} {{user.name.givenName}} dans le chat</h1>
         <img width="300px" height="300px" :src="user.photo" alt="Photo user">
         -->
-
-        <div id="chat_container">
+        <div v-if="!salonVisible" class="row enterSalon">
+            <div class="input-field col s10">
+                <input v-model="salon" id="salon" type="text" class="validate">
+                <label for="salon">Le nom de mon salon</label>
+            </div>
+            <button @click="enterSalon" class="btn waves-effect waves-light">
+                Entrer <i class="material-icons">send</i>
+            </button>
+            <h1>{{salon}}</h1>
+        </div>
+        <div v-else id="chat_container">
             <ul class="chat__container">
 
                 <li v-for="message in messages" sm="11" v-bind:class="{ myMessage: message.user.id == user.id }"
@@ -37,7 +46,7 @@
                 </li>
             </ul>
         </div>
-        <div class="row message__container">
+        <div v-if="salonVisible" class="row message__container">
             <div class="col s12 centered_align_justify">
                 <div class="input-field col s10">
                     <input @keyup.enter="envoyer_msg" v-model="text_msg" type="text"
@@ -50,11 +59,7 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
     <style>
         body {
             background-color: black;
@@ -128,6 +133,12 @@
             height: 100%;
             overflow-y: scroll;
         }
+
+        .enterSalon {
+            height: 100%;
+            align-items: center;
+            display: flex;
+        }
     </style>
 
 </body>
@@ -141,6 +152,8 @@
         el: '#app',
         data() {
             return {
+                salonVisible: false,
+                salon: '',
                 trueValue: true,
                 messages: [],
                 text_msg: '',
@@ -157,9 +170,20 @@
             }
         },
         methods: {
+            enterSalon() {
+                if (this.salon != '') {
+                    this.salonVisible = !this.salonVisible
+                    this.socket.on(this.salon, msg => {
+                        // if(msg.salon == this.salon){
+                            this.messages.push(msg)
+                        // } 
+                    });
+                }
+            },
             envoyer_msg() {
                 if (this.text_msg != '') {
                     this.socket.emit('chat message', {
+                        salon: this.salon,
                         user: this.user,
                         message: this.text_msg
                     });
@@ -170,9 +194,7 @@
         },
         mounted() {
             this.socket = io();
-            this.socket.on('chat message', msg => {
-                this.messages.push(msg)
-            });
+
             axios
                 .get('/getUserConnected')
                 .then(response => {
