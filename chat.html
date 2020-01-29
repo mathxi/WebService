@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -22,15 +22,21 @@
         <h1>Bienvenu {{user.name.familyName}} {{user.name.givenName}} dans le chat</h1>
         <img width="300px" height="300px" :src="user.photo" alt="Photo user">
         -->
-        <div v-if="!salonVisible" class="row enterSalon">
-            <div class="input-field col s10">
-                <input v-model="salon" id="salon" type="text" class="validate">
-                <label for="salon">Le nom de mon salon</label>
+        <div v-if="!salonVisible" class="enterSalon">
+            <div class="row container">
+                <div class="col s12 displaySalon">
+                    <h3>Titre du salon :</h1>
+                </div>
+                <div class="input-field col s10">
+                    <input v-model="salon" id="salon" type="text">
+                    <p class="red-text">{{error}}</p>
+                </div>
+                <div class="col s2 positionButton">
+                    <button @click="enterSalon" class="btn waves-effect waves-light">
+                        Entrer dans ce salon<i class="material-icons">screen_share</i>
+                    </button>
+                </div>
             </div>
-            <button @click="enterSalon" class="btn waves-effect waves-light">
-                Entrer <i class="material-icons">send</i>
-            </button>
-            <h1>{{salon}}</h1>
         </div>
         <div v-else id="chat_container">
             <ul class="chat__container">
@@ -47,14 +53,13 @@
             </ul>
         </div>
         <div v-if="salonVisible" class="row message__container">
-            <div class="col s12 centered_align_justify">
+            <div class="col s12 centered_align_justify formMessage">
                 <div class="input-field col s10">
-                    <input @keyup.enter="envoyer_msg" v-model="text_msg" type="text"
-                        class="validate white-text message_input">
+                    <input @keyup.enter="envoyer_msg" v-model="text_msg" type="text" class="white-text message_input">
                 </div>
                 <div class="col s2 centered_align_justify">
                     <button @click="envoyer_msg" class="btn waves-effect waves-light centered_align_justify">
-                        Envoyer <i class="material-icons">send</i>
+                        Envoyer<i class="material-icons right">send</i>
                     </button>
                 </div>
             </div>
@@ -68,6 +73,72 @@
         #app {
             height: 100vh;
             overflow: hidden;
+            padding: 1%;
+        }
+
+        input#salon:focus {
+            color: whitesmoke;
+            font-size: x-large;
+            text-transform: uppercase;
+        }
+
+        input#salon {
+            color: whitesmoke;
+            font-size: x-large;
+            background-color: #444444;
+            border-bottom-color: transparent;
+            border-bottom: none !important;
+            box-shadow: none !important;
+            text-transform: uppercase;
+        }
+
+        input#salon:focus {
+            color: whitesmoke;
+            font-size: x-large;
+            border-bottom-color: transparent;
+            text-transform: uppercase;
+        }
+
+        input#salon:active {
+            color: whitesmoke;
+            font-size: x-large;
+            border-bottom-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .displaySalon {
+            color: whitesmoke;
+        }
+
+        .btn {
+            width: max-content;
+            display: flex;
+            box-shadow: 1px 3px 5px 0px #fdfdfd38;
+            border-radius: 1vw;
+            background-color: #1d1d1d;
+            color: #ece6e6;
+            font-weight: 700;
+            padding: 0px 25px;
+            height: 62px;
+        }
+
+        .btn:hover {
+            background-color: aliceblue;
+            color: black;
+            box-shadow: inset 4px 4px 6px -1px whitesmoke, inset -4px -4px 6px -1px whitesmoke,
+                -0.5px -0.5px 0 whitesmoke, 0.5px 0.5px 0 whitesmoke, 0px 12px 10px -10px whitesmoke;
+        }
+
+        .btn:focus-within {
+            background-color: aliceblue;
+            color: black;
+            box-shadow: inset 4px 4px 6px -1px whitesmoke, inset -4px -4px 6px -1px whitesmoke,
+                -0.5px -0.5px 0 whitesmoke, 0.5px 0.5px 0 whitesmoke, 0px 12px 10px -10px whitesmoke;
+        }
+
+        .btn i {
+            font-size: 1.5em;
+            margin-inline-start: 1vw;
         }
 
         #inputMessage {
@@ -103,6 +174,7 @@
             position: relative;
             margin: 30px 15px;
             box-shadow: 0px 3px 10px black;
+            width: fit-content;
         }
 
         .message__user__info img {
@@ -117,6 +189,14 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+        }
+
+        li.a__message.myMessage{
+            text-align-last: end;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
         .message_input {
@@ -139,6 +219,52 @@
             align-items: center;
             display: flex;
         }
+
+        .formMessage {
+            height: 140px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-button {
+            width: 0px;
+            height: 0px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border: 0px none #ffffff;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background: #000000;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #9c9a9a;
+            border: 0px none #ffffff;
+            border-radius: 60px;
+        }
+
+        ::-webkit-scrollbar-track:hover {
+            background: #8d8d8d;
+        }
+
+        ::-webkit-scrollbar-track:active {
+            background: #ffffff;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
     </style>
 
 </body>
@@ -154,31 +280,168 @@
             return {
                 salonVisible: false,
                 salon: '',
+                error: '',
                 trueValue: true,
-                messages: [],
+                messages: [
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '1',
+                            name: {
+                                familyName: 'Mathieu',
+                                givenName: 'Janio',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'Un message de type random qui ne sert a rien'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '1',
+                            name: {
+                                familyName: 'Mathieu',
+                                givenName: 'Janio',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'Un message de type random qui ne sert a rien'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '1',
+                            name: {
+                                familyName: 'Mathieu',
+                                givenName: 'Janio',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'Un message de type random qui ne sert a rien'
+                    },
+                    {
+                        salon: 'nomSalon',
+                        user: {
+                            id: '2',
+                            name: {
+                                familyName: 'Antoine',
+                                givenName: 'Mazoyer',
+                            },
+                            photo: 'https://picsum.photos/300/300',
+                            locale: 'FR',
+                        },
+                        message: 'J\'ai le seum'
+                    },
+                ],
                 text_msg: '',
                 user: {
-                    id: '',
+                    id: '1',
                     name: {
-                        familyName: '',
-                        givenName: '',
+                        familyName: 'Mathieu',
+                        givenName: 'Janio',
                     },
-                    photo: '',
-                    locale: '',
+                    photo: 'https://picsum.photos/300/300',
+                    locale: 'FR',
                 },
                 socket: null
             }
         },
         methods: {
             enterSalon() {
-                if (this.salon != '') {
+                this.salon = this.salon.toUpperCase()
+                if (this.salon == '' || this.salon.match("[^A-Z]")) {
+                    this.error = "Le nom du salon doit être une chaîne de carractère en majuscule"
+                } else {
+                    this.error = ""
                     this.salonVisible = !this.salonVisible
                     this.socket.on(this.salon, msg => {
                         // if(msg.salon == this.salon){
-                            this.messages.push(msg)
+                        this.messages.push(msg)
                         // } 
                     });
                 }
+
             },
             envoyer_msg() {
                 if (this.text_msg != '') {
