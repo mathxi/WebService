@@ -18,7 +18,8 @@ io.on('connection', function (socket) {
     });
 });
 
-app.use(express.static('public'));
+
+
 
 app.use(session({
     secret: 'Le carre de l hypothenuse',
