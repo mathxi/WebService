@@ -1,5 +1,7 @@
+@import "./utils/variables";
+
 body {
-    background-color: black;
+    background-color: $primary-color;
 }
 
 #app {
@@ -8,38 +10,24 @@ body {
     padding: 1%;
 }
 
-input#salon:focus {
-    color: whitesmoke;
-    font-size: x-large;
-    text-transform: uppercase;
-}
-
 input#salon {
-    color: whitesmoke;
+    color: $second-color;
     font-size: x-large;
     background-color: #444444;
     border-bottom-color: transparent;
     border-bottom: none !important;
     box-shadow: none !important;
     text-transform: uppercase;
-}
-
-input#salon:focus {
-    color: whitesmoke;
-    font-size: x-large;
-    border-bottom-color: transparent;
-    text-transform: uppercase;
-}
-
-input#salon:active {
-    color: whitesmoke;
-    font-size: x-large;
-    border-bottom-color: transparent;
-    text-transform: uppercase;
+        &:focus, &:active{
+            color: $second-color;
+            font-size: x-large;
+            text-transform: uppercase;
+            border-bottom-color: transparent;
+        }
 }
 
 .displaySalon {
-    color: whitesmoke;
+    color: $second-color;
 }
 
 button.btn {
@@ -52,43 +40,34 @@ button.btn {
     font-weight: 700;
     padding: 0px 25px;
     height: 62px;
-}
-
-button.btn:hover {
-    background-color: aliceblue;
-    color: black;
-    box-shadow: inset 4px 4px 6px -1px whitesmoke, inset -4px -4px 6px -1px whitesmoke,
-        -0.5px -0.5px 0 whitesmoke, 0.5px 0.5px 0 whitesmoke, 0px 12px 10px -10px whitesmoke;
-}
-
-button.btn:focus-within {
-    background-color: aliceblue;
-    color: black;
-    box-shadow: inset 4px 4px 6px -1px whitesmoke, inset -4px -4px 6px -1px whitesmoke,
-        -0.5px -0.5px 0 whitesmoke, 0.5px 0.5px 0 whitesmoke, 0px 12px 10px -10px whitesmoke;
-}
-
-button.btn i {
-    font-size: 1.5em;
-    margin-inline-start: 1vw;
+        &:hover, &:focus-within{
+            background-color: aliceblue;
+            color: black;
+            box-shadow: inset 4px 4px 6px -1px $second-color, inset -4px -4px 6px -1px $second-color,
+                -0.5px -0.5px 0 $second-color, 0.5px 0.5px 0 $second-color, 0px 12px 10px -10px $second-color;
+        }
+    i{
+        font-size: 1.5em;
+        margin-inline-start: 1vw;
+    }
 }
 
 #inputMessage {
     width: 100%;
-    color: rgba(255, 255, 255, 1);
+    color: $second-color;
 }
 
 #chat_container {
     height: 90%;
     width: 100%;
-    color: white;
+    color: $second-color;
     background-color: rgba(56, 53, 53, 0.87);
 }
 
 #textaenvoyer {
     max-width: 90%;
     background-color: #312e2e;
-    color: white;
+    color: $second-color;
 }
 
 .centered_align_justify {
@@ -105,27 +84,26 @@ button.btn i {
     border-radius: 5px;
     position: relative;
     margin: 30px 15px;
-    box-shadow: 0px 3px 10px black;
+    box-shadow: 0px 3px 10px $primary-color;
     width: fit-content;
-}
-
-.message__user__info img {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    margin-right: 10px;
-    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .message__user__info {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    img{
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        margin-right: 10px;
+        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
+    }
 }
 
 li.a__message.myMessage{
     text-align-last: end;
-    background-color: black;
+    background-color: $primary-color;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -170,22 +148,22 @@ li.a__message.myMessage{
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ffffff;
-    border: 0px none #ffffff;
+    background: $second-color;
+    border: 0px none $second-color;
     border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;
+    background: $second-color;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background: #000000;
+    background: $primary-color;
 }
 
 ::-webkit-scrollbar-track {
     background: #9c9a9a;
-    border: 0px none #ffffff;
+    border: 0px none $second-color;
     border-radius: 60px;
 }
 
@@ -194,7 +172,7 @@ li.a__message.myMessage{
 }
 
 ::-webkit-scrollbar-track:active {
-    background: #ffffff;
+    background: $second-color;
 }
 
 ::-webkit-scrollbar-corner {
