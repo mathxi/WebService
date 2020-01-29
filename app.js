@@ -31,6 +31,7 @@ app.use(session({
 }))
 
 
+
 function findOrCreate() {
     User.id = profile.id
     User.name = profile.name
@@ -103,7 +104,7 @@ app.get('/getUserConnected', function (req, res) {
 
 
 http.listen(port, function () {
-    console.log(`L'application écoute le port ${port}!`)
+    console.log(`Example app listening on port ${port}!`)
 })
 
 
