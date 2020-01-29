@@ -17,11 +17,9 @@ input#salon {
     border-bottom-color: transparent;
     border-bottom: none !important;
     box-shadow: none !important;
-    text-transform: uppercase;
         &:focus, &:active{
             color: $second-color;
             font-size: x-large;
-            text-transform: uppercase;
             border-bottom-color: transparent;
         }
 }

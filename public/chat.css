@@ -16,13 +16,11 @@ input#salon {
   border-bottom: none !important;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
-  text-transform: uppercase;
 }
 
 input#salon:focus, input#salon:active {
   color: whitesmoke;
   font-size: x-large;
-  text-transform: uppercase;
   border-bottom-color: transparent;
 }
 
