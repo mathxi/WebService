@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -24,15 +24,15 @@
         <img width="300px" height="300px" :src="user.photo" alt="Photo user">
         -->
         <div v-if="!salonVisible" class="enterSalon">
-            <div class="row container">
+            <div class="row container formSalon">
                 <div class="col s12 displaySalon">
                     <h3>Titre du salon :</h1>
                 </div>
-                <div class="input-field col s10">
+                <div class="input-field col s12 m10">
                     <input v-model="salon" id="salon" type="text">
                     <p class="red-text">{{error}}</p>
                 </div>
-                <div class="col s2">
+                <div class="col s12 m2">
                     <button @click="enterSalon" class="btn waves-effect waves-light">
                         Entrer dans ce salon<i class="material-icons">screen_share</i>
                     </button>
@@ -104,9 +104,9 @@
                     this.error = ""
                     this.salonVisible = !this.salonVisible
                     this.socket.on(this.salon, msg => {
-                        // if(msg.salon == this.salon){
+                         if(msg.salon == this.salon){
                         this.messages.push(msg)
-                        // } 
+                         } 
                     });
                 }
 

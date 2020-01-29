@@ -2,10 +2,48 @@ body {
   background-color: black;
 }
 
-#app {
-  height: 100vh;
-  overflow: hidden;
-  padding: 1%;
+@media screen and (min-width: null) {
+  #app {
+    height: 100vh;
+    overflow: hidden;
+    padding: 1%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #app {
+    width: 100%;
+  }
+  .row.container.formSalon {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .a__message {
+    padding: 20px 40px;
+    background-color: #404040;
+    margin: 0px 10px;
+    border-radius: 5px;
+    position: relative;
+    margin: 30px 15px;
+    -webkit-box-shadow: 0px 3px 10px black;
+            box-shadow: 0px 3px 10px black;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 90%;
+  }
 }
 
 input#salon {
@@ -16,6 +54,7 @@ input#salon {
   border-bottom: none !important;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
+  text-transform: uppercase !important;
 }
 
 input#salon:focus, input#salon:active {
@@ -58,6 +97,11 @@ button.btn i {
           margin-inline-start: 1vw;
 }
 
+#app {
+  height: 100vh;
+  padding: 1%;
+}
+
 #inputMessage {
   width: 100%;
   color: whitesmoke;
@@ -89,7 +133,6 @@ button.btn i {
 }
 
 .a__message {
-  width: 90%;
   padding: 20px 40px;
   background-color: #404040;
   margin: 0px 10px;
@@ -101,6 +144,7 @@ button.btn i {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  max-width: 50%;
 }
 
 .message__user__info {

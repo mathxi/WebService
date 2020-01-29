@@ -1,13 +1,42 @@
+@import "./utils/mixins";
 @import "./utils/variables";
 
 body {
     background-color: $primary-color;
 }
 
-#app {
+@include normal-screen{
+ #app {
     height: 100vh;
     overflow: hidden;
     padding: 1%;
+    width: 100%;
+    }
+}
+
+@include mobile-screen{
+    #app{
+        width: 100%;
+    }
+    .row.container.formSalon{
+        margin: 0 auto;
+        max-width: 1280px;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .a__message {
+        padding: 20px 40px;
+        background-color: #404040;
+        margin: 0px 10px;
+        border-radius: 5px;
+        position: relative;
+        margin: 30px 15px;
+        box-shadow: 0px 3px 10px $primary-color;
+        width: fit-content;
+        max-width: 90%;
+    }
 }
 
 input#salon {
@@ -50,7 +79,10 @@ button.btn {
         margin-inline-start: 1vw;
     }
 }
-
+#app{
+    height: 100vh;
+    padding: 1%;
+}
 #inputMessage {
     width: 100%;
     color: $second-color;
@@ -76,7 +108,6 @@ button.btn {
 }
 
 .a__message {
-    width: 90%;
     padding: 20px 40px;
     background-color: #404040;
     margin: 0px 10px;

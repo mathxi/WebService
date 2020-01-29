@@ -1,0 +1,11 @@
+@mixin mobile-screen {
+    @media screen and (max-width: map-get($mobileonly, mobile)) {
+        @content;
+    }
+}
+
+@mixin normal-screen {
+    @media screen and (min-width: map-get($normalscreen, normal)) {
+        @content;
+    }
+}
