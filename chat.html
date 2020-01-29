@@ -97,14 +97,19 @@
         },
         methods: {
             enterSalon() {
-                if (this.salon != '') {
+                this.salon = this.salon.toUpperCase()
+                if (this.salon == '' || this.salon.match("[^A-Z]")) {
+                    this.error = "Le nom du salon doit être une chaîne de carractère en majuscule"
+                } else {
+                    this.error = ""
                     this.salonVisible = !this.salonVisible
                     this.socket.on(this.salon, msg => {
                         // if(msg.salon == this.salon){
-                            this.messages.push(msg)
+                        this.messages.push(msg)
                         // } 
                     });
                 }
+
             },
             envoyer_msg() {
                 if (this.text_msg != '') {
