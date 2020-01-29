@@ -52,7 +52,7 @@ passport.serializeUser(function (user, done) {
 passport.use(new GoogleStrategy({
         clientID: key.web.client_id,
         clientSecret: key.web.client_secret,
-        callbackURL: "http://chatservice.ml/auth/google/callback"
+        callbackURL: "http://chatservice.ml:8080/auth/google/callback"
     },
     function (accessToken, refreshToken, profile, done) {
         //console.log("User", profile)
