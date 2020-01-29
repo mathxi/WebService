@@ -11,7 +11,7 @@ body {
 input#salon {
   color: whitesmoke;
   font-size: x-large;
-  background-color: #444444;
+  background-color: #333333;
   border-bottom-color: transparent;
   border-bottom: none !important;
   -webkit-box-shadow: none !important;
@@ -41,7 +41,7 @@ button.btn {
           box-shadow: 1px 3px 5px 0px #fdfdfd38;
   border-radius: 1vw;
   background-color: #1d1d1d;
-  color: #ece6e6;
+  color: #ededed;
   font-weight: 700;
   padding: 0px 25px;
   height: 62px;
@@ -122,8 +122,8 @@ button.btn i {
   height: 50px;
   border-radius: 25px;
   margin-right: 10px;
-  -webkit-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
-          box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: -2px 2px 5px #030303;
+          box-shadow: -2px 2px 5px #030303;
 }
 
 li.a__message.myMessage {
