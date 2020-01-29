@@ -13,7 +13,7 @@ body {
 input#salon {
     color: $second-color;
     font-size: x-large;
-    background-color: #444444;
+    background-color: lighten($primary-color, $amount: 20%);
     border-bottom-color: transparent;
     border-bottom: none !important;
     box-shadow: none !important;
@@ -42,7 +42,7 @@ button.btn {
     height: 62px;
         &:hover, &:focus-within{
             background-color: aliceblue;
-            color: black;
+            color: $primary-color;
             box-shadow: inset 4px 4px 6px -1px $second-color, inset -4px -4px 6px -1px $second-color,
                 -0.5px -0.5px 0 $second-color, 0.5px 0.5px 0 $second-color, 0px 12px 10px -10px $second-color;
         }
@@ -79,7 +79,7 @@ button.btn {
 .a__message {
     width: 90%;
     padding: 20px 40px;
-    background-color: #404040;
+    background-color: lighten($primary-color, $amount: 20%);
     margin: 0px 10px;
     border-radius: 5px;
     position: relative;
@@ -97,7 +97,7 @@ button.btn {
         height: 50px;
         border-radius: 25px;
         margin-right: 10px;
-        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
+        box-shadow: -2px 2px 5px lighten($primary-color, $amount: 2%);
     }
 }
 
